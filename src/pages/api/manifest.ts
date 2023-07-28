@@ -9,19 +9,17 @@ import { orderCreatedWebhook } from "./webhooks/order-created";
  * https://github.com/saleor/saleor-app-sdk/blob/main/docs/api-handlers.md#manifest-handler-factory
  */
 export default createManifestHandler({
-  async manifestFactory({ appBaseUrl, request }) {
+  async manifestFactory ({ appBaseUrl }) {
     /**
      * Allow to overwrite default app base url, to enable Docker support.
      *
      * See docs: TODO
      */
-    const iframeBaseUrl = process.env.APP_IFRAME_BASE_URL ?? appBaseUrl;
-    const apiBaseURL = process.env.APP_API_BASE_URL ?? appBaseUrl;
 
     const manifest: AppManifest = {
       name: 'Saleor App Template',
       tokenTargetUrl: `${appBaseUrl}/api/register`,
-      appUrl: iframeBaseUrl,
+      appUrl: appBaseUrl,
       /**
        * Set permissions for app if needed
        * https://docs.saleor.io/docs/3.x/developer/permissions
@@ -33,6 +31,7 @@ export default createManifestHandler({
          * This can be removed
          */
         "MANAGE_ORDERS",
+        "MANAGE_CHECKOUTS"
       ],
       id: "saleor.app",
       version: packageJson.version,
@@ -44,18 +43,12 @@ export default createManifestHandler({
        * Easiest way to create webhook is to use app-sdk
        * https://github.com/saleor/saleor-app-sdk/blob/main/docs/saleor-webhook.md
        */
-      webhooks: [orderCreatedWebhook.getWebhookManifest(apiBaseURL)],
+      webhooks: [orderCreatedWebhook.getWebhookManifest(appBaseUrl)],
       /**
        * Optionally, extend Dashboard with custom UIs
        * https://docs.saleor.io/docs/3.x/developer/extending/apps/extending-dashboard-with-apps
        */
       extensions: [],
-      author: "Saleor Commerce",
-      brand: {
-        logo: {
-          default: `${apiBaseURL}/logo.png`,
-        },
-      },
     };
 
     return manifest;
