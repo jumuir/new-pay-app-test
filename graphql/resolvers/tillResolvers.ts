@@ -18,7 +18,7 @@ export const resolvers = {
     Query: {
         allTills: (_: any, args: { storeID: string; }) => {
             try {
-                const allTills = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../../../../data/tillData.json"), { encoding: "utf-8" })) as { "data": StoreTills[]; };
+                const allTills = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../../../../../data/tillData.json"), { encoding: "utf-8" })) as { "data": StoreTills[]; };
                 console.log(args.storeID);
                 if (!allTills) {
                     throw new Error("Unable to return data for all tills.");
@@ -39,7 +39,7 @@ export const resolvers = {
 
         tillInfo: (_: any, args: { number: string; }) => {
             try {
-                const allTills = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../../../../data/tillData.json"), { encoding: "utf-8" })) as { "data": StoreTills[]; };
+                const allTills = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../../../../../data/tillData.json"), { encoding: "utf-8" })) as { "data": StoreTills[]; };
 
                 if (!allTills) {
                     throw new Error("Unable to return data.");
@@ -65,7 +65,7 @@ export const resolvers = {
     Mutation: {
         openTill (_: any, args: { number: string; }) {
             try {
-                const allTills = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../../../../data/tillData.json"), { encoding: "utf-8" })) as { "data": StoreTills[]; };
+                const allTills = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../../../../../data/tillData.json"), { encoding: "utf-8" })) as { "data": StoreTills[]; };
 
                 if (!allTills) {
                     throw new Error("Unable to return data.");
@@ -85,7 +85,7 @@ export const resolvers = {
                 tillData.openTime = (new Date).toDateString();
                 tillData.dailyID = randomUUID();
                 allTills.data[0]["tills"][tillIndex] = tillData;
-                fs.writeFileSync(path.resolve(__dirname, "../../../../data/tillData.json"), JSON.stringify(allTills), { encoding: "utf-8" });
+                fs.writeFileSync(path.resolve(__dirname, "../../../../../data/tillData.json"), JSON.stringify(allTills), { encoding: "utf-8" });
                 return tillData;
             }
             catch (error) {
@@ -95,7 +95,7 @@ export const resolvers = {
         },
         closeTill (_: any, args: { number: string; }) {
             try {
-                const allTills = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../../../../data/tillData.json"), { encoding: "utf-8" })) as { "data": StoreTills[]; };
+                const allTills = JSON.parse(fs.readFileSync(path.resolve(__dirname, "../../../../../data/tillData.json"), { encoding: "utf-8" })) as { "data": StoreTills[]; };
 
                 if (!allTills) {
                     throw new Error("Unable to return data.");
@@ -114,7 +114,7 @@ export const resolvers = {
 
                 tillData.closeTime = (new Date).toDateString();
                 allTills.data[0]["tills"][tillIndex] = tillData;
-                fs.writeFileSync(path.resolve(__dirname, "../../../../data/tillData.json"), JSON.stringify(allTills), { encoding: "utf-8" });
+                fs.writeFileSync(path.resolve(__dirname, "../../../../../data/tillData.json"), JSON.stringify(allTills), { encoding: "utf-8" });
                 return tillData;
             }
             catch (error) {

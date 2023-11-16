@@ -1,8 +1,8 @@
 import { useAppBridge } from "@saleor/app-sdk/app-bridge";
 import { useTheme } from "@saleor/macaw-ui/next";
-import { memo, useEffect } from "react";
+import { useEffect } from "react";
 
-export function ThemeSynchronizer() {
+export function ThemeSynchronizer () {
   const { appBridgeState } = useAppBridge();
   const { setTheme } = useTheme();
 

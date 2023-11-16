@@ -1,3 +1,5 @@
+'use client';
+
 import { actions, useAppBridge } from "@saleor/app-sdk/app-bridge";
 import { Box, Button, Input, Text } from "@saleor/macaw-ui/next";
 import { NextPage } from "next";
